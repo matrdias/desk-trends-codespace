@@ -70,9 +70,9 @@ def animation_demo() -> None:
     st.button("Re-run")
 
 
-st.set_page_config(page_title="Animation Demo", page_icon="📹")
-st.markdown("# Animation Demo")
-st.sidebar.header("Animation Demo")
+st.set_page_config(page_title="Animation", page_icon="📹")
+st.markdown("# Animation")
+st.sidebar.header("Animation")
 st.write(
     """This app shows how you can use Streamlit to build cool animations.
 It displays an animated fractal based on the the Julia Set. Use the slider

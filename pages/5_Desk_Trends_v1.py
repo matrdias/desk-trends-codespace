@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+from streamlit.hello.utils import top_label
 
 st.set_page_config(
     page_title="Desk Trends",
@@ -12,46 +13,41 @@ st.set_page_config(
 # Replace these with your actual data
 data_reason = pd.DataFrame({
     'reason': ['Quitação do empréstimo', 'Envio de boleto', 'Atualizar informações de contato', 'Alteração da data de vencimento do boleto', 'Cliente não respondeu'],
-    'count': [100, 80, 50, 40, 4]
+    'total': [340, 180, 55, 90, 10]
 })
 
 data_demand = pd.DataFrame({
     'demand': ['Valor de quitação', 'Gerar boleto de quitação', 'Esclarecer problemas com pagamento', 'Negociar novo acordo', 'Resolver problema com juros e multa'],
-    'count': [90, 70, 60, 50, 40]
+    'total': [390, 270, 160, 50, 40]
 })
 
 data_action = pd.DataFrame({
     'action': ['Enviou o boleto por e-mail', 'Informou forma de pagamento cadastrada', 'Solicitou print da tela de erro', 'Informou como solicitar um empréstimo', 'Informou processo para alterar os dados cadastrais'],
-    'count': [85, 65, 55, 45, 35]
+    'total': [485, 265, 155, 45, 35]
 })
 
 data_sentiment = pd.DataFrame({
     'sentimento': ['Positive', 'Negative', 'Neutral'],
-    'count': [100, 50, 50]
+    'total': [454, 271, 120]
 })
 
 data_upsell = pd.DataFrame({
     'oportunidade': ['True', 'False'],
-    'count': [30, 170]
+    'total': [80, 463]
 })
 
-# Convert 'count' to percentages for sentiment and upsell opportunity
-total_sentiment = data_sentiment['count'].sum()
-data_sentiment['percentage'] = (data_sentiment['count'] / total_sentiment) * 100
+# Convert 'total' to percentages for sentiment and upsell opportunity
+total_sentiment = data_sentiment['total'].sum()
+data_sentiment['percentage'] = (data_sentiment['total'] / total_sentiment) * 100
 
-total_upsell = data_upsell['count'].sum()
-data_upsell['percentage'] = (data_upsell['count'] / total_upsell) * 100
+total_upsell = data_upsell['total'].sum()
+data_upsell['percentage'] = (data_upsell['total'] / total_upsell) * 100
 
 # Title
 st.title("Desk Trends")
 
 # Calculate top reason data
-top_reason_row = data_reason.iloc[0]
-top_reason = top_reason_row['reason']
-top_reason_count = top_reason_row['count']
-total_reason_count = data_reason['count'].sum()
-top_reason_percentage = (top_reason_count / total_reason_count) * 100
-top_reason_percentage = int(round(top_reason_percentage))
+top_reason_percentage, top_reason = top_label(data_reason, 'reason')
 
 st.header("Motivos de contato")
 
@@ -65,7 +61,7 @@ with col1:
 
 with col2:
     chart1 = alt.Chart(data_reason).mark_bar().encode(
-        x=alt.X('count:Q', title=None),
+        x='total:Q',
         y=alt.Y('reason:O', sort='-x', title=None)
     ).properties(
             width=300,  # Increase the width
@@ -75,20 +71,16 @@ with col2:
 
 
 # Calculate top demand data
-top_demand_row = data_demand.iloc[0]
-top_demand = top_demand_row['demand']
-top_demand_count = top_demand_row['count']
-total_demand_count = data_demand['count'].sum()
-top_demand_percentage = (top_demand_count / total_demand_count) * 100
-top_demand_percentage = int(round(top_demand_percentage))
+top_demand_percentage, top_demand = top_label(data_demand, 'demand')
+
+st.header("Demandas dos clientes")
 
 # Create two columns for Plot 4 and Plot 5
 col3, col4 = st.columns(2)
 
 with col3:
-    st.subheader("Demandas dos clientes")
     chart2 = alt.Chart(data_demand).mark_bar().encode(
-        x='count:Q',
+        x='total:Q',
         y=alt.Y('demand:O', sort='-x', title=None)
     ).properties(
             width=300,  # Increase the width
@@ -101,16 +93,30 @@ with col4:
     sentence = f"{top_demand_percentage}% são para {top_demand}."
     st.subheader(sentence)
 
-# Plot 3: Most common actions done by helpdesk
-st.subheader("Ações dos atendentes")
-chart3 = alt.Chart(data_action).mark_bar().encode(
-    x='count:Q',
-    y=alt.Y('action:O', sort='-x', title=None)
-).properties(
-        width=300,  # Increase the width
-        height=200  # Increase the height
-    )
-st.altair_chart(chart3, use_container_width=True)
+
+# Calculate top action data
+top_action_percentage, top_action = top_label(data_action, 'action')
+
+st.header("Ações dos atendentes")
+
+# Create two columns for Plot 4 and Plot 5
+col5, col6 = st.columns(2)
+
+with col5:
+    # Display the sentence
+    sentence = f"{top_action_percentage}% são para {top_action}."
+    st.subheader(sentence)
+
+with col6:
+    # Plot 3: Most common actions done by helpdesk
+    chart3 = alt.Chart(data_action).mark_bar().encode(
+        x='total:Q',
+        y=alt.Y('action:O', sort='-x', title=None)
+    ).properties(
+            width=300,  # Increase the width
+            height=200  # Increase the height
+        )
+    st.altair_chart(chart3, use_container_width=True)
 
 # Create two columns for Plot 4 and Plot 5
 col7, col8 = st.columns(2)

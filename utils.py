@@ -26,3 +26,22 @@ def show_code(demo):
         st.markdown("## Code")
         sourcelines, _ = inspect.getsourcelines(demo)
         st.code(textwrap.dedent("".join(sourcelines[1:])))
+
+def top_label(df, label):
+    """
+    Calculates the top label (reason, demand or action) based on the given dataframe and label.
+
+    Parameters:
+    df (pandas.DataFrame): The dataframe containing the data to be analyzed.
+    label (str): The label to be used for calculating the top label.
+
+    Returns:
+    int: The percentage of the top label in the dataframe.
+    """
+    top_label_row = df.iloc[0]
+    top_label = top_label_row['label']
+    top_label_total = top_label_row['total']
+    total_label_total = df['total'].sum()
+    top_label_percentage = (top_label_total / total_label_total) * 100
+    top_label_percentage = int(round(top_label_percentage))
+    return top_label_percentage, top_label

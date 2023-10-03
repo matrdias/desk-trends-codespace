@@ -39,7 +39,7 @@ def top_label(df, label):
     int: The percentage of the top label in the dataframe.
     """
     top_label_row = df.iloc[0]
-    top_label = top_label_row['label']
+    top_label = top_label_row[label]
     top_label_total = top_label_row['total']
     total_label_total = df['total'].sum()
     top_label_percentage = (top_label_total / total_label_total) * 100

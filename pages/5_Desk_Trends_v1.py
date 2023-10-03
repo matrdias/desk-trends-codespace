@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
-from streamlit.hello.utils import top_label
+from utils import top_label
 
 st.set_page_config(
     page_title="Desk Trends",

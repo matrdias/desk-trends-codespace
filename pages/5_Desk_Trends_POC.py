@@ -5,6 +5,9 @@ import altair as alt
 from utils import top_label, total_to_percentage
 from data import main_data
 from datetime import date
+from streamlit_extras.tags import tagger_component
+from streamlit_extras.metric_cards import style_metric_cards
+
 
 
 st.set_page_config(
@@ -49,7 +52,12 @@ col1, col2 = st.columns(2)
 
 with col1:
     # Display the sentence
-    sentence = f"{top_reason} com {top_reason_percentage}%"
+    tagger_component(
+    "",
+    [top_reason],
+    color_name=["blue"],
+)
+    sentence = f"   {top_reason_percentage}%"
     st.subheader(sentence)
 
 with col2:

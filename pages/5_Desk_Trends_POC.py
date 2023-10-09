@@ -9,7 +9,6 @@ from streamlit_extras.tags import tagger_component
 from streamlit_extras.metric_cards import style_metric_cards
 
 
-
 st.set_page_config(
     page_title="Desk Trends",
     page_icon="📈",
@@ -54,15 +53,25 @@ with col1:
     # Display the sentence
     tagger_component(
     "",
-    [top_reason],
+    ["Principal contato"],
     color_name=["blue"],
 )
+    html_str = f"""
+    <style>
+    p.a {{
+    font: bold 20px Sans-serif;
+    }}
+    </style>
+    <p class="a">{top_reason}</p>
+    """
+
+    st.markdown(html_str, unsafe_allow_html=True)
     sentence = f"   {top_reason_percentage}%"
     st.subheader(sentence)
 
 with col2:
     chart1 = alt.Chart(filtered_data_reason).mark_bar(color='#0096FA').encode(
-        x='total:Q',
+        x='Total:Q',
         y=alt.Y('reason:O', sort='-x', title=None)
     ).properties(
             width=300,  # Increase the width
@@ -82,7 +91,7 @@ col3, col4 = st.columns(2)
 
 with col3:
     chart2 = alt.Chart(filtered_data_demand).mark_bar(color='#0096FA').encode(
-        x='total:Q',
+        x='Total:Q',
         y=alt.Y('demand:O', sort='-x', title=None)
     ).properties(
             width=300,  # Increase the width
@@ -113,7 +122,7 @@ with col5:
 with col6:
     # Plot 3: Most common actions done by helpdesk
     chart3 = alt.Chart(filtered_data_action).mark_bar(color='#0096FA').encode(
-        x='total:Q',
+        x='Total:Q',
         y=alt.Y('action:O', sort='-x', title=None)
     ).properties(
             width=300,  # Increase the width

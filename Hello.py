@@ -24,7 +24,7 @@ def run():
         page_icon="👋",
     )
 
-    st.write("# Bem vindo ao Desk Trends POC! 📈")
+    st.write("# Bem vindo ao Desk Trends POC 📈")
 
     st.sidebar.success("Clique em Desk Trends POC.")
 

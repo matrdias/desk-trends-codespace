@@ -33,7 +33,7 @@ def main_data():
     data_upsell = pd.DataFrame({
         'bot_id': ['Bot 1', 'Bot 1', 'Bot 1', 'Bot 1', 'Bot 2', 'Bot 2', 'Bot 2', 'Bot 2'],
         'queue': ['SAC', 'SAC', 'Default', 'Default', 'Vendas', 'Vendas', 'Cobrança', 'Cobrança'],
-        'oportunidade': ['True', 'False', 'True', 'False', 'True', 'False', 'True', 'False'],
+        'oportunidade': ['Sim', 'Não', 'Sim', 'Não', 'Sim', 'Não', 'Sim', 'Não'],
         'total': [80, 463, 280, 403, 180, 463, 80, 300]
     })
 
@@ -43,7 +43,7 @@ def main_data():
         'ticket_id': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
         'user_id': ['55912121212', '55923232323', '55934343434', '55945454545', '55956565656', '55967676767', '55978787878', '55989898989', '55990909090', '55914141414', '55925252525', '55947474747', '55959595959', '55938383838'],
         'sentimento': ['Positivo', 'Positivo', 'Neutro', 'Negativo', 'Negativo', 'Neutro', 'Positivo', 'Negativo', 'Neutro', 'Positivo', 'Negativo', 'Neutro', 'Positivo', 'Positivo'],
-        'oportunidade': ['True', 'False', 'True', 'False', 'True', 'True', 'True', 'False', 'True', 'False', 'True', 'False', 'False', 'True']
+        'oportunidade': ['Sim', 'Não', 'Sim', 'Não', 'Sim', 'Sim', 'Sim', 'Não', 'Sim', 'Não', 'Sim', 'Não', 'Não', 'Sim']
     })
 
 
